@@ -1415,6 +1415,12 @@
 
 	newoption
 	{
+		trigger     = "instrumentator",
+		description = "Start the build in instrumentator."
+	}
+
+	newoption
+	{
 		trigger     = "file",
 		value       = "FILE",
 		description = "Read FILE as a Premake script; default is 'premake5.lua'"

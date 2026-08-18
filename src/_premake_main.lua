@@ -22,7 +22,6 @@
 		dofile(manifest[i])
 	end
 
-
 -- Create namespaces for myself
 
 	local p = premake
@@ -35,7 +34,6 @@
 -- "should load" test functions.
 
 	m._preloaded = {}
-
 
 ---
 -- Add a new module loader that knows how to use the Premake paths like
@@ -276,6 +274,25 @@
 	end
 
 ---
+-- Start, Stop instrumentator session
+---
+
+	function m.startInstrumentatorSession()
+		if (_OPTIONS["instrumentator"]) then
+			print("Starting instrumentator session...")
+			p.tools.instrumentator.beginSession()
+
+		end
+	end
+
+	function m.endInstrumentatorSession()
+		if (_OPTIONS["instrumentator"]) then
+			print("Ending instrumentator session...")
+			p.tools.instrumentator.endSession()
+		end
+	end
+
+---
 -- Override point, for logic that should run before baking.
 ---
 
@@ -384,6 +401,7 @@
 
 	m.elements = {
 		m.tryHookDebugger,
+		m.startInstrumentatorSession,
 		m.installModuleLoader,
 		m.locateUserScript,
 		m.prepareEnvironment,
@@ -401,6 +419,7 @@
 		m.preAction,
 		m.callAction,
 		m.postAction,
+		m.endInstrumentatorSession
 	}
 
 	function _premake_main()
